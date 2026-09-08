@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Science of Up</title>
+  <style>
+    body{background:#0a0a0a;
+    color:white;
+    font-family:Arial;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh}
+    .form{background:#111;
+        padding:40px;
+        border-radius:16px;
+        width:90%;
+        max-width:400px;
+        text-align:center}
+        input{width:100%;
+            padding:14px;
+            margin:10px 0;
+            background:#222;
+            border:1px solid #333;
+            color:white;
+            border-radius:8px}
+            .btn{background:#00ff88;
+                color:black;
+                padding:14px;
+                border:none;
+                width:100%;
+                border-radius:8px;
+                font-weight:bold;
+                cursor:pointer}
+            </style>
+</head>
+<body>
+  <div class="form">
+    <h1 style="color:#00ff88">WELCOME BACK</h1>
+    <input type="email" id="loginEmail" placeholder="Your Email">
+    <input type="password" id="loginPassword" placeholder="Password">
+    <button class="btn" onclick="login()">LOGIN</button>
+  </div>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  const firebaseConfig = {apiKey:"AIzaSyBuVJpQgTxhN0HnDpSjf8sZLgjesSmS1LPz",authDomain:"science-of-up.firebaseapp.com",projectId:"science-of-up",storageBucket:"science-of-up.appspot.com",messagingSenderId:"323866113368",appId:"1:323866113368:web:0b0d73c37b6a86e06e12d"};
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  window.login = async function(){
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    try{await signInWithEmailAndPassword(auth,email,password);alert("Logged In! ✅");window.location.href="dashboard.html";}
+    catch(e){alert(e.message);}
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Science of Up - Sign Up</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .form {
+      width: 90%;
+      max-width: 400px;
+      background: #111;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,255,136,0.2);
+      text-align: center;
+    }
+    h1 { color: #00ff88; margin-bottom: 10px; }
+    p { color: #aaa; margin-bottom: 30px; font-size: 14px; }
+    input {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #222;
+      color: white;
+      font-size: 15px;
+    }
+    .btn {
+      background: #00ff88;
+      color: black;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 100%;
+      margin-top: 15px;
+      font-size: 16px;
+    }
+    .btn:hover { background: #00cc6a; }
+  </style>
+</head>
+<body>
+  <div class="form">
+    <h1>JOIN THE COMMUNITY</h1>
+    <p>Talk to engineers. Ask questions. Learn together.</p>
+    
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="email" id="email" placeholder="Your Email" required>
+    <input type="password" id="password" placeholder="Create password" required>
+    
+    <button class="btn" onclick="signup()">CREATE AN ACCOUNT</button>
+  </div>
+
+  <script type="module">
+    // 1. IMPORT FIREBASE
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    // 2. YOUR FIREBASE CONFIG - FROM YOUR PROJECT
+    const firebaseConfig = {
+      apiKey: "AIzaSyBuVJpQgTxhN0HnDpSjf8sZLgjesSmS1LPz",
+      authDomain: "science-of-up.firebaseapp.com",
+      projectId: "science-of-up",
+      storageBucket: "science-of-up.appspot.com",
+      messagingSenderId: "323866113368",
+      appId: "1:323866113368:web:0b0d73c37b6a86e06e12d",
+      measurementId: "G-SFWXKBFF6X"
+    };
+
+    // 3. INITIALIZE FIREBASE
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const auth = getAuth(app);
+
+    // 4. SIGNUP FUNCTION
+    window.signup = async function() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      if(!name || !email || !password){
+        alert("Please fill all fields");
+        return;
+      }
+
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert("Account Created! ✅ Welcome " + name);
+        window.location.href = "login.html"; 
+      } catch (error) {
+        alert("Error: " + error.message);
+      }
+    }
+  </script>
+</body>
+</html>
